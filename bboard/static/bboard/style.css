@@ -1,0 +1,40 @@
+.navbar {
+    font-size: 15px;
+    width: 80vw;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    background: lightgray;
+}
+
+.logo {
+    padding: 10px;
+}
+
+.add-item {
+    border: 2px solid #fff;
+    border-radius: 10px;
+    padding: 10px;
+    transition: .1s ease-in-out;
+}
+
+.add-item:hover {
+    background: #fff;
+}
+
+.container {
+    margin: 0 30%;
+}
+
+header h1 {
+    font-size: 30pt;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.navbar a {
+    flex: 1 1 1;
+    margin: 10px 15px;
+    text-decoration: none;
+}

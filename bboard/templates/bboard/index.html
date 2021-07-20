@@ -1,0 +1,15 @@
+{% extends 'bboard/base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+
+{% block content %}
+    {% for item in items %}
+        <h2>{{ item.title }}</h2>
+        <p>{{ item.description }}</p>
+        <p><strong>{{ item.price }}</strong></p>
+        <p>{{ item.date|date:"d.m.Y H:i" }}</p>
+    {% endfor %}
+{% endblock %}

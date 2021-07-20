@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bboard/style.css' %}">
+</head>
+<body>
+
+<header>
+    <h1>Объявления</h1> {% block name %}{% endblock %}
+</header>
+
+<div class="navbar">
+    <a class="logo" href="{% url 'home' %}">Продавай всЁ</a>
+    <a class="add-item" href="{% url 'add' %}">Добавить объявление</a>
+    <br>
+    {% for rubric in rubrics %}
+        <a href="{% url 'rubric' rubric.pk %}">{{ rubric }}</a>
+    {% endfor %}
+</div>
+
+<br>
+<br>
+
+<section class="container">
+    {% block content %}{% endblock %}
+</section>
+
+</body>
+</html>
