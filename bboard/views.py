@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
-
+from django.views.generic import TemplateView, DetailView
 from .models import Bb
 from .models import Rubric
 from django.views.generic.edit import CreateView
@@ -55,4 +54,14 @@ class BbCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['rubrics'] = Rubric.objects.all()
+        return context
+
+
+class PostView(DetailView):
+    model = Bb
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rubrics'] = Rubric.objects.all()
+
         return context

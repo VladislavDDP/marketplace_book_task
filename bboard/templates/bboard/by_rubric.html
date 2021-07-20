@@ -10,7 +10,7 @@
 
 {% block content %}
     {% for item in items %}
-        <h2>{{ item.title }}</h2>
+        <h2><a href="{% url 'detail' pk=item.pk %}">{{ item.title }}</a></h2>
         <p><a href="{% url 'rubric' item.rubric.pk %}">{{ item.rubric }}</a></p>
         <p>{{ item.description }}</p>
         <p><strong>{{ item.price }}</strong></p>
