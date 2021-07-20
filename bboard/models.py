@@ -19,7 +19,7 @@ class Bb(models.Model):
         KYIV = 'kyi', 'Киев'
         ODESSA = 'ode', 'Одесса'
         DNIPRO = 'dni', 'Днепр'
-        __empty__ = 'Выберите город'
+        __empty__ = '---------'
 
     city = models.CharField(max_length=3, choices=CITIES.choices)
 

@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='home'),
-    path('<int:rubric_id>/', views.by_rubric, name='rubric'),
+    path('', views.indexView.as_view(), name='home'),
+    path('<int:rubric_id>/', views.byRubricView.as_view(), name='rubric'),
     path('add/', views.BbCreateView.as_view(), name='add'),
 ]

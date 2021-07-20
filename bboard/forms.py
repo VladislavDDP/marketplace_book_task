@@ -7,6 +7,15 @@ class BbForm(ModelForm):
         model = Bb
         fields = '__all__'
 
+        labels = {
+            'title': '',
+            'rubric': '',
+            'description': '',
+            'price': '',
+            'date': '',
+            'city': '',
+        }
+
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Название'}),
             'rubric': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Рубрика'}),
