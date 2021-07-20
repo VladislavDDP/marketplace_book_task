@@ -2,15 +2,9 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView
 from .models import Bb
 from .models import Rubric
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from .forms import BbForm
 from django.urls import reverse_lazy
-
-# Create your views here.
-def index(request):
-    items = Bb.objects.all()
-    rubrics = Rubric.objects.all()
-    return render(request, 'bboard/index.html', {'items': items, 'rubrics': rubrics})
 
 
 class indexView(TemplateView):
@@ -64,4 +58,15 @@ class PostView(DetailView):
         context = super().get_context_data(**kwargs)
         context['rubrics'] = Rubric.objects.all()
 
+        return context
+
+
+class BbEditview(UpdateView):
+    model = Bb
+    form_class = BbForm
+    success_url = ''
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rubrics'] = Rubric.objects.all()
         return context
