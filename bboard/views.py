@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView
 from .models import Bb
 from .models import Rubric
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import BbForm
 from django.urls import reverse_lazy
 
@@ -64,9 +64,19 @@ class PostView(DetailView):
 class BbEditview(UpdateView):
     model = Bb
     form_class = BbForm
-    success_url = ''
+    success_url = reverse_lazy('home')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         context['rubrics'] = Rubric.objects.all()
+        return context
+
+
+class BbDeleteView(DeleteView):
+    model = Bb
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rubrics'] = Bb.objects.all()
         return context

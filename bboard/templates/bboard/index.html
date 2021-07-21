@@ -11,5 +11,7 @@ Home
         <p>{{ item.description }}</p>
         <p><strong>{{ item.price }}</strong></p>
         <p>{{ item.date|date:"d.m.Y H:i" }}</p>
+        <button class="btn btn-info"><a href="{% url 'edit' pk=item.pk %}">Edit</a></button>
+        <button class="btn btn-danger"><a href="{% url 'delete' pk=item.pk %}">Delete</a></button>
     {% endfor %}
 {% endblock %}

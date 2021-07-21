@@ -10,4 +10,6 @@
     <h2>{{ bb.title }}</h2>
     <p>{{ bb.content }}</p>
     <p>Цена: {{ bb.price }}</p>
+    <a href="{% url 'edit' pk=bb.pk %}"><button class="btn btn-info">Edit</button></a>
+    <a href="{% url 'delete' pk=bb.pk %}"></a><button class="btn btn-danger">Delete</button>
 {% endblock %}
