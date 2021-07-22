@@ -16,7 +16,7 @@ Home
     {% for item in items %}
         <a class="lead" style="text-decoration: none;" href="{% url 'detail' pk=item.pk %}">{{ item.title }}</a>
         <p class="{% cycle 'alert alert-primary' 'alert alert-secondary' 'alert alert-success' %}">
-            {{ item.description }}</p>
+            {{ item.description|truncatechars:'50' }}</p>
         <p><strong>{{ item.price }}</strong></p>
         <p>{{ item.date|date:"d.m.Y H:i" }}</p>
         <button class="btn btn-info"><a href="{% url 'edit' pk=item.pk %}">Edit</a></button>
