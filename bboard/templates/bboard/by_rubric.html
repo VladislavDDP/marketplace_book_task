@@ -9,12 +9,20 @@
 {% endblock %}
 
 {% block content %}
+    {% with counter=items.count %}
+        В категории <strong>{{ current_rubric }}</strong>
+        найдено {{ counter }} объявлений
+    <br><br>
+    {% endwith %}
+
     {% for item in items %}
         <h2><a href="{% url 'detail' pk=item.pk %}">{{ item.title }}</a></h2>
         <p><a href="{% url 'rubric' item.rubric.pk %}">{{ item.rubric }}</a></p>
         <p>{{ item.description }}</p>
         <p><strong>{{ item.price }}</strong></p>
         <p>{{ item.date|date:"d.m.Y H:i" }}</p>
+    {% empty %}
+        <h1>В категории <em>{{ current_rubric }}</em> пока еще нет постов...</h1>
     {% endfor %}
 
     <a href="{% url 'add' %}">Добавить новое</a>

@@ -6,12 +6,26 @@ Home
 
 
 {% block content %}
+
+    {% with bb_count=items.count %}
+    {% if bb_count > 0 %}
+        <h2>На главной странице всего {{ bb_count }} объявлений.</h2>
+    {% endif %}
+    {% endwith %}
+
     {% for item in items %}
-        <h2><a href="{% url 'detail' pk=item.pk %}">{{ item.title }}</a></h2>
-        <p>{{ item.description }}</p>
+        <a class="lead" style="text-decoration: none;" href="{% url 'detail' pk=item.pk %}">{{ item.title }}</a>
+        <p class="{% cycle 'alert alert-primary' 'alert alert-secondary' 'alert alert-success' %}">
+            {{ item.description }}</p>
         <p><strong>{{ item.price }}</strong></p>
         <p>{{ item.date|date:"d.m.Y H:i" }}</p>
         <button class="btn btn-info"><a href="{% url 'edit' pk=item.pk %}">Edit</a></button>
         <button class="btn btn-danger"><a href="{% url 'delete' pk=item.pk %}">Delete</a></button>
+        <br>
+        <br>
+        <br>
+    {% empty %}
+        <h1>There are no items in the list of publications</h1>
     {% endfor %}
+
 {% endblock %}

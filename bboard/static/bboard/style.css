@@ -38,3 +38,14 @@ header h1 {
     margin: 10px 15px;
     text-decoration: none;
 }
+
+.item1 {
+    color: red;
+}
+
+.item2 {
+    color: blue;
+}
+.item3 {
+    color: green;
+}
