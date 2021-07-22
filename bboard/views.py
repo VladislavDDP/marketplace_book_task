@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView
 from .models import Bb
@@ -17,6 +18,17 @@ class indexView(TemplateView):
 
         return context
 
+def index(request):
+    rubrics = Rubric.objects.all()
+    items = Bb.objects.all()
+    paginator = Paginator(items, 3)
+    if 'page' in request.GET:
+        page_num = request.GET['page']
+    else:
+        page_num = 1
+    page = paginator.get_page(page_num)
+    context = {'rubrics': rubrics, 'page': page, 'items': page.object_list}
+    return render(request, 'bboard/index.html', context)
 
 # def by_rubric(request, rubric_id):
 #     items = Bb.objects.filter(rubric=rubric_id)
