@@ -36,6 +36,15 @@ class byRubricView(TemplateView):
         context['items'] = Bb.objects.filter(rubric=context['rubric_id'])
         context['rubrics'] = Rubric.objects.all()
         context['current_rubric'] = Rubric.objects.get(pk=context['rubric_id'])
+        check_word = int(str(len(context['items']))[0])
+        if check_word == 1:
+            check_word = 'объявление'
+        elif check_word in [2, 3, 4]:
+            check_word = 'объявления'
+        else:
+            check_word = 'объявлений'
+
+        context['posts'] = check_word
 
         return context
 
