@@ -1,5 +1,7 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.forms import modelformset_factory
+from django.forms.formsets import ORDERING_FIELD_NAME
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, DetailView
 from .models import Bb
 from .models import Rubric
@@ -18,6 +20,7 @@ class indexView(TemplateView):
 
         return context
 
+
 def index(request):
     rubrics = Rubric.objects.all()
     items = Bb.objects.all()
@@ -29,6 +32,7 @@ def index(request):
     page = paginator.get_page(page_num)
     context = {'rubrics': rubrics, 'page': page, 'items': page.object_list}
     return render(request, 'bboard/index.html', context)
+
 
 # def by_rubric(request, rubric_id):
 #     items = Bb.objects.filter(rubric=rubric_id)
@@ -59,6 +63,24 @@ class byRubricView(TemplateView):
         context['posts'] = check_word
 
         return context
+
+
+def rubrics(request):
+    RubricFormSet = modelformset_factory(Rubric, fields=('name',),
+                                         can_order=True, can_delete=True)
+    if request.method == 'POST':
+        formset = RubricFormSet(request.POST)
+        if formset.is_valid():
+            for form in formset:
+                if form.cleaned_data:
+                    rubric = form.save(commit=False)
+                    rubric.order = form.cleaned_data[ORDERING_FIELD_NAME]
+                    rubric.save()
+            return redirect('home')
+    else:
+        formset = RubricFormSet()
+    context = {'formset': formset}
+    return render(request, 'bboard/rubrics.html', context)
 
 
 class BbCreateView(CreateView):

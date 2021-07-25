@@ -8,4 +8,5 @@ urlpatterns = [
     path('detail/<int:pk>/', views.PostView.as_view(), name='detail'),
     path('edit/<int:pk>/', views.BbEditview.as_view(), name='edit'),
     path('delete/<int:pk>/', views.BbDeleteView.as_view(), name='delete'),
+    path('rubrics/', views.rubrics, name='rubrics'),
 ]
