@@ -9,12 +9,6 @@ class Bb(models.Model):
     price = models.FloatField(null=True, blank=True, verbose_name='Цена')
     date = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Дата публикации')
 
-    # CITIES = (
-    #     (None, 'Выберите город'),
-    #     ('k', 'kiev'),
-    #     ('od', 'odessa'),
-    #     ('lv', 'lvov'),
-    # )
     class CITIES(models.TextChoices):
         KYIV = 'kyi', 'Киев'
         ODESSA = 'ode', 'Одесса'
@@ -41,3 +35,5 @@ class Rubric(models.Model):
         verbose_name = 'Рубрика'
         verbose_name_plural = 'Рубрики'
         ordering = ['name']
+
+
