@@ -1,6 +1,7 @@
 from django.db import models
 from django.core import validators
 
+
 # Create your models here.
 class Bb(models.Model):
     title = models.CharField(max_length=50, verbose_name='Заголовок')
@@ -35,5 +36,4 @@ class Rubric(models.Model):
         verbose_name = 'Рубрика'
         verbose_name_plural = 'Рубрики'
         ordering = ['name']
-
 

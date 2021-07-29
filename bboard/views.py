@@ -24,7 +24,7 @@ class indexView(TemplateView):
 def index(request):
     rubrics = Rubric.objects.all()
     items = Bb.objects.all()
-    paginator = Paginator(items, 3)
+    paginator = Paginator(items, 5)
     if 'page' in request.GET:
         page_num = request.GET['page']
     else:
