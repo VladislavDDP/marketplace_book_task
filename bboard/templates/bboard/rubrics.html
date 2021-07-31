@@ -5,9 +5,10 @@
 {% endblock %}
 
 {% block content %}
+    {% load bootstrap4 %}
     <form action="" method="POST">
         {% csrf_token %}
-        {{ formset.as_p }}
-        <input type="submit" value="Add">
+        {% bootstrap_formset formset %}
+        {% bootstrap_button content='Сохранить' button_type='submit' %}
     </form>
 {% endblock %}

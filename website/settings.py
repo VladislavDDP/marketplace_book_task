@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'bboard',
     'Factory',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [

@@ -1,3 +1,12 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 .navbar {
     font-size: 15px;
     width: 80vw;
@@ -56,6 +65,16 @@ header h1 {
     left: 0;
     top: 0;
     width: 0%;
-    height: 3px;
+    height: 6px;
+    background-color: #fc972b;
+}
+
+.progressbar-bottom {
+    position: fixed;
+    z-index: 50;
+    left: 0;
+    bottom: 0;
+    width: 6px;
+    height: 0%;
     background-color: #fc972b;
 }

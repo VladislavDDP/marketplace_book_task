@@ -13,14 +13,16 @@ Home
     {% endif %}
     {% endwith %}
 
+    {% load filtersandtags %}
+
     {% for item in items %}
         <a class="lead" style="text-decoration: none;" href="{% url 'detail' pk=item.pk %}">{{ item.title }}</a>
         <p class="{% cycle 'alert alert-primary' 'alert alert-secondary' 'alert alert-success' %}">
             {{ item.description|truncatechars:'50' }}</p>
-        <p><strong>{{ item.price }}</strong></p>
+        <p><strong>{{ item.price|currency:'UAH' }}</strong></p>
         <p>{{ item.date|date:"d.m.Y H:i" }}</p>
-        <button class="btn btn-info"><a href="{% url 'edit' pk=item.pk %}">Edit</a></button>
-        <button class="btn btn-danger"><a href="{% url 'delete' pk=item.pk %}">Delete</a></button>
+        <a class="btn btn-info" href="{% url 'edit' pk=item.pk %}">Edit</a>
+        <a class="btn btn-danger" href="{% url 'delete' pk=item.pk %}">Delete</a>
         <br>
         <br>
         <br>
@@ -28,18 +30,19 @@ Home
         <h1>There are no items in the list of publications</h1>
     {% endfor %}
 
+<!--    {% if page.has_previous %}-->
+<!--            <a href="?page={{ page.previous_page_number }}">Previous</a>-->
+<!--    {% endif %}-->
 
+<!--    <span class="current">-->
+<!--        Page {{ page.number }} of {{ page.paginator.num_pages }}-->
+<!--    </span>-->
 
-    {% if page.has_previous %}
-            <a href="?page={{ page.previous_page_number }}">Previous</a>
-    {% endif %}
+<!--    {% if page.has_next %}-->
+<!--        <a href="?page={{ page.next_page_number }}">Next</a>-->
+<!--    {% endif %}-->
 
-    <span class="current">
-        Page {{ page.number }} of {{ page.paginator.num_pages }}
-    </span>
-
-    {% if page.has_next %}
-        <a href="?page={{ page.next_page_number }}">Next</a>
-    {% endif %}
+    {% load bootstrap4 %}
+    {% bootstrap_pagination page size="None" pages_to_show=2 %}
 
 {% endblock %}
