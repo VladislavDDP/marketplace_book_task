@@ -10,25 +10,48 @@
 </head>
 <body>
 <div class="progressbar"></div>
-<ul class="nav">
-    <li class="nav-item">
-        <a href="{% url 'home' %}" class="btn" style="text-decoration: underline; background: tomato;">SELLER</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'rubrics' %}">Rubrics</a>
-    </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Категории</a>
-        <ul class="dropdown-menu">
-            {% for rubric in rubrics %}
-                <li><a class="dropdown-item" href="{% url 'rubric' rubric.pk %}">{{ rubric }}</a></li>
-            {% endfor %}
-        </ul>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link btn btn-info" href="{% url 'add' %}">Добавить объявление</a>
-    </li>
-</ul>
+<nav class="navbar navbar-dark bg-primary navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">SELLER</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'rubrics' %}">Rubrics</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Категории
+                </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% for rubric in rubrics %}
+                            <li><a class="dropdown-item" href="{% url 'rubric' rubric.pk %}">{{ rubric }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-danger" href="{% url 'add' %}" tabindex="-1" >Добавить объявление</a>
+                </li>
+            </ul>
+
+            {% if user.is_authenticated %}
+                <h4>{{ user.username }}</h4>
+                <a class="btn btn-light" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a class="btn btn-success" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-info" href="{% url 'register' %}">Register</a>
+            {% endif %}
+            <form method="post" class="d-flex" action="{% url 'search' %}">
+                {% csrf_token %}
+                <input class="form-control me-2" name="keyword" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
 
 <br>
 <br>

@@ -1,7 +1,8 @@
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.forms import modelformset_factory
 from django.forms.formsets import ORDERING_FIELD_NAME
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, DetailView
 from .models import Bb
 from .models import Rubric
@@ -24,13 +25,17 @@ class indexView(TemplateView):
 def index(request):
     rubrics = Rubric.objects.all()
     items = Bb.objects.all()
+    length = len(items)
     paginator = Paginator(items, 5)
     if 'page' in request.GET:
         page_num = request.GET['page']
     else:
         page_num = 1
     page = paginator.get_page(page_num)
-    context = {'rubrics': rubrics, 'page': page, 'items': page.object_list}
+    context = {'rubrics': rubrics,
+               'page': page,
+               'items': page.object_list,
+               'length': '{} {}'.format(length, check_word(length))}
     return render(request, 'bboard/index.html', context)
 
 
@@ -43,6 +48,15 @@ def index(request):
 #                'current_rubric': current_rubric}
 #     return render(request, 'bboard/by_rubric.html', context)
 
+def check_word(number):
+    if number == 1:
+        number = 'объявление'
+    elif number in [2, 3, 4]:
+        number = 'объявления'
+    else:
+        number = 'объявлений'
+    return number
+
 
 class byRubricView(TemplateView):
     template_name = 'bboard/by_rubric.html'
@@ -52,15 +66,7 @@ class byRubricView(TemplateView):
         context['items'] = Bb.objects.filter(rubric=context['rubric_id'])
         context['rubrics'] = Rubric.objects.all()
         context['current_rubric'] = Rubric.objects.get(pk=context['rubric_id'])
-        check_word = int(str(len(context['items']))[0])
-        if check_word == 1:
-            check_word = 'объявление'
-        elif check_word in [2, 3, 4]:
-            check_word = 'объявления'
-        else:
-            check_word = 'объявлений'
-
-        context['posts'] = check_word
+        context['posts'] = check_word(len(context['items']))
 
         return context
 
@@ -123,3 +129,29 @@ class BbDeleteView(DeleteView):
         context = super().get_context_data(**kwargs)
         context['rubrics'] = Bb.objects.all()
         return context
+
+
+def delete_post(request, pk_id):
+    post = get_object_or_404(Bb, pk=pk_id)
+    if request.method == 'POST':
+        post.delete()
+        return redirect('home')
+
+    return render(request, 'bboard/bb_confirm_delete.html', {'bb': post})
+
+
+def cancel(request):
+    return redirect('home')
+
+
+def search_posts(request):
+    keyword = request.POST['keyword']
+    if request.method == 'POST':
+        q = Q(title__contains=keyword)
+        items = Bb.objects.filter(q)
+        length = len(items)
+        return render(request, 'bboard/search.html',
+                      {'items': items,
+                       'keyword': keyword,
+                       'length': '{} {}'.format(length, check_word(length))})
+    return render(request, 'bboard/search.html', {})

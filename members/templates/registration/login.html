@@ -1,0 +1,16 @@
+{% extends 'bboard/base.html' %}
+
+{% block title %}
+Создать профиль
+{% endblock %}
+
+
+{% block content %}
+    <h1>Авторизация</h1>
+    {% load bootstrap4 %}
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button content='Войти' button_type='submit' %}
+    </form>
+{% endblock %}

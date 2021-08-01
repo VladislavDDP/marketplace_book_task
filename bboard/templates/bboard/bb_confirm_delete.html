@@ -9,6 +9,7 @@
     <p>Цена: {{ bb.price }}</p>
     <form method="post">
         {% csrf_token %}
-        <input type="submit" value="Удалить">
+        <input class="btn btn-danger" type="submit" value="Удалить">
+        <a class="btn btn-secondary" href="{% url 'cancel' %}">Cancel</a>
     </form>
 {% endblock %}

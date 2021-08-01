@@ -2,12 +2,15 @@ from django.forms import ModelForm
 from django import forms
 from .models import Bb
 from .models import Rubric
+from captcha.fields import CaptchaField
 
 class BbForm(ModelForm):
     rubric = forms.ModelChoiceField(queryset=Rubric.objects.all(), label='',
                                     empty_label='Рубрика----',
                                     help_text='He забудьте задать рубрику’',
                                     widget=forms.widgets.Select(attrs={'size': 1}))
+
+    captcha = CaptchaField()
 
     class Meta:
         model = Bb

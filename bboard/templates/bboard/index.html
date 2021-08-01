@@ -8,9 +8,7 @@ Home
 {% block content %}
 
     {% with bb_count=items.count %}
-    {% if bb_count > 0 %}
-        <h2>На главной странице всего {{ bb_count }}.</h2>
-    {% endif %}
+        <h2>На главной странице всего {{ length }}.</h2>
     {% endwith %}
 
     {% load filtersandtags %}
@@ -21,8 +19,10 @@ Home
             {{ item.description|truncatechars:'50' }}</p>
         <p><strong>{{ item.price|currency:'UAH' }}</strong></p>
         <p>{{ item.date|date:"d.m.Y H:i" }}</p>
-        <a class="btn btn-info" href="{% url 'edit' pk=item.pk %}">Edit</a>
-        <a class="btn btn-danger" href="{% url 'delete' pk=item.pk %}">Delete</a>
+        {% if user.id == 1 %}
+            <a class="btn btn-info" href="{% url 'edit' pk=item.pk %}">Edit</a>
+            <a class="btn btn-danger" href="{% url 'delete' pk_id=item.pk %}">Delete</a>
+        {% endif %}
         <br>
         <br>
         <br>
