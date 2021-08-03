@@ -110,6 +110,11 @@ class PostView(DetailView):
         return context
 
 
+def detail(request, slug=None):
+    post = get_object_or_404(Bb, slug=slug)
+    return render(request, 'bboard/bb_detail.html', {'bb': post})
+
+
 class BbEditview(UpdateView):
     model = Bb
     form_class = BbForm

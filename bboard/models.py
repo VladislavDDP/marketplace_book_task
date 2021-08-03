@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from django.core import validators
 
 
@@ -9,6 +10,11 @@ class Bb(models.Model):
     description = models.TextField(null=True, blank=True, verbose_name='Описание')
     price = models.FloatField(null=True, blank=True, verbose_name='Цена')
     date = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Дата публикации')
+    slug = models.SlugField(blank=True, default='')
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Bb, self).save()
 
     class CITIES(models.TextChoices):
         KYIV = 'kyi', 'Киев'

@@ -14,7 +14,7 @@ Home
     {% load filtersandtags %}
 
     {% for item in items %}
-        <a class="lead" style="text-decoration: none;" href="{% url 'detail' pk=item.pk %}">{{ item.title }}</a>
+        <a class="lead" style="text-decoration: none;" href="{% url 'detail' item.title|slugify %}">{{ item.title }}</a>
         <p class="{% cycle 'alert alert-primary' 'alert alert-secondary' 'alert alert-success' %}">
             {{ item.description|truncatechars:'50' }}</p>
         <p><strong>{{ item.price|currency:'UAH' }}</strong></p>
